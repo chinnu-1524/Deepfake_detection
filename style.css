@@ -1,0 +1,136 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* BACKGROUND */
+body {
+    height: 100vh;
+    background: linear-gradient(135deg, #1d2671, #c33764);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* CENTER CONTAINER */
+.container {
+    width: 95%;
+    max-width: 1400px;
+    min-height: 85vh;
+    background: #cbb6e2;   /* soft lavender */
+    color: #2e1a47;
+    padding: 60px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.35);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* HEADER */
+header h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 17px;
+    margin-bottom: 50px;
+}
+
+/* CARD WRAPPER */
+.cards {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+/* CARD */
+.card {
+    width: 440px;              /* BIGGER BOXES */
+    min-height: 380px;
+    padding: 45px;
+    background: #f7f3fb;
+    border-radius: 22px;
+    box-shadow: 0 18px 35px rgba(0,0,0,0.18);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* CARD TEXT */
+.card h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.card p {
+    font-size: 15px;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+/* INPUT */
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+/* BUTTON */
+button {
+    width: 100%;
+    padding: 16px;
+    font-size: 17px;
+    background: linear-gradient(135deg, #1d2671, #c33764);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* RESULT */
+.result {
+    margin-top: 20px;
+    padding: 14px;
+    background: #ffffff;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #1d2671;
+}
+
+/* IMAGE & VIDEO PREVIEW */
+.preview {
+    margin-top: 15px;
+    width: 100%;
+    max-height: 250px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .container {
+        padding: 35px;
+        min-height: auto;
+    }
+
+    .card {
+        width: 100%;
+    }
+}

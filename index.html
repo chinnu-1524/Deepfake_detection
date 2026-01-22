@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deepfake Detection System</title>
+
+    <!-- Flask CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <header>
+        <h1>🕵️ Deepfake Detection System</h1>
+        <p>Upload an image or video to check whether it is REAL or DEEPFAKE</p>
+    </header>
+
+    <!-- CARDS -->
+    <div class="cards">
+
+        <!-- IMAGE CARD -->
+        <div class="card">
+            <h2>🖼 Image Detection</h2>
+            <p class="subtitle">Upload an image to verify authenticity</p>
+
+            <input type="file" id="imageFile" accept="image/*" onchange="previewImage()">
+            <button onclick="detectImage()">Detect Image</button>
+
+            <!-- IMAGE PREVIEW -->
+            <img id="imagePreview" class="preview" style="display:none;">
+
+            <div class="result" id="imageResult">Result will appear here</div>
+        </div>
+
+        <!-- VIDEO CARD -->
+        <div class="card">
+            <h2>🎥 Video Detection</h2>
+            <p class="subtitle">Upload a video to verify authenticity</p>
+
+            <input type="file" id="videoFile" accept="video/*" onchange="previewVideo()">
+            <button onclick="detectVideo()">Detect Video</button>
+
+            <!-- VIDEO PREVIEW -->
+            <video id="videoPreview" class="preview" controls style="display:none;"></video>
+
+            <div class="result" id="videoResult">Result will appear here</div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= JAVASCRIPT ================= -->
+<script>
+/* IMAGE PREVIEW */
+function previewImage() {
+    const file = document.getElementById("imageFile").files[0];
+    const preview = document.getElementById("imagePreview");
+
+    if (file) {
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = "block";
+    }
+}
+
+/* VIDEO PREVIEW */
+function previewVideo() {
+    const file = document.getElementById("videoFile").files[0];
+    const preview = document.getElementById("videoPreview");
+
+    if (file) {
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = "block";
+    }
+}
+
+/* IMAGE DETECTION */
+function detectImage() {
+    const fileInput = document.getElementById("imageFile");
+    const resultBox = document.getElementById("imageResult");
+
+    if (!fileInput.files.length) {
+        resultBox.innerHTML = "❌ Please select an image";
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", fileInput.files[0]);
+
+    resultBox.innerHTML = "⏳ Detecting image...";
+
+    fetch("/detect-image", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        resultBox.innerHTML = `<strong>${data.result}</strong><br>Confidence: ${data.confidence}`;
+    })
+    .catch(() => {
+        resultBox.innerHTML = "❌ Error detecting image";
+    });
+}
+
+/* VIDEO DETECTION */
+function detectVideo() {
+    const fileInput = document.getElementById("videoFile");
+    const resultBox = document.getElementById("videoResult");
+
+    if (!fileInput.files.length) {
+        resultBox.innerHTML = "❌ Please select a video";
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("video", fileInput.files[0]);
+
+    resultBox.innerHTML = "⏳ Detecting video...";
+
+    fetch("/detect-video", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        resultBox.innerHTML = `<strong>${data.result}</strong><br>Confidence: ${data.confidence}`;
+    })
+    .catch(() => {
+        resultBox.innerHTML = "❌ Error detecting video";
+    });
+}
+</script>
+
+</body>
+</html>
